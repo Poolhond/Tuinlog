@@ -14,1827 +14,442 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
     <style>
         :root {
-            --green-900: #1a3a0a;
-            --green-800: #2d5016;
-            --green-700: #3d6b1e;
-            --green-600: #4e8726;
-            --green-500: #5fa32e;
-            --green-400: #7abc4a;
-            --green-300: #a3d477;
-            --green-200: #c8e8a8;
-            --green-100: #e8f5d8;
-            --green-50: #f4faea;
-            
-            --sand-100: #faf8f5;
-            --sand-200: #f0ece5;
-            --sand-300: #e0d9cc;
-            --sand-400: #c4b9a6;
-            
-            --text-primary: #1c1c1e;
-            --text-secondary: #6b6b6f;
-            --text-tertiary: #aeaeb2;
-            
-            --danger: #d32f2f;
-            --danger-light: #ffeaea;
-            --warning: #f9a825;
-            --success: #2e7d32;
-            
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 20px;
-            
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-            --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
-            
-            --safe-top: env(safe-area-inset-top, 20px);
-            --safe-bottom: env(safe-area-inset-bottom, 0px);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            font-family: 'DM Sans', -apple-system, sans-serif;
-            background: var(--sand-100);
-            color: var(--text-primary);
-            min-height: 100dvh;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* ===== APP SHELL ===== */
-        .app {
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            padding-bottom: calc(72px + var(--safe-bottom));
-        }
-
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: linear-gradient(135deg, var(--green-800), var(--green-700));
-            padding: calc(var(--safe-top) + 8px) 20px 16px;
-            color: white;
-        }
-
-        .header h1 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 28px;
-            font-weight: 400;
-            letter-spacing: -0.3px;
-        }
-
-        .header p {
-            font-size: 13px;
-            opacity: 0.75;
-            margin-top: 2px;
-            font-weight: 300;
-        }
-
-        .content {
-            flex: 1;
-            padding: 16px;
-            padding-bottom: 24px;
-        }
-
-        /* ===== BOTTOM NAV ===== */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            background: white;
-            border-top: 1px solid var(--sand-200);
-            display: flex;
-            padding-bottom: var(--safe-bottom);
-            box-shadow: 0 -2px 20px rgba(0,0,0,0.06);
-        }
-
-        .nav-item {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 8px 0 6px;
-            gap: 3px;
-            border: none;
-            background: none;
-            color: var(--text-tertiary);
-            font-size: 10px;
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 500;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .nav-item.active {
-            color: var(--green-700);
-        }
-
-        .nav-item svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        /* ===== CARDS ===== */
-        .card {
-            background: white;
-            border-radius: var(--radius-lg);
-            padding: 16px;
-            margin-bottom: 12px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--sand-200);
-            transition: transform 0.15s, box-shadow 0.15s;
-        }
-
-        .card:active {
-            transform: scale(0.985);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 8px;
-        }
-
-        .card-title {
-            font-weight: 600;
-            font-size: 16px;
-            color: var(--text-primary);
-        }
-
-        .card-subtitle {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-top: 2px;
-        }
-
-        .card-badge {
-            font-size: 11px;
-            font-weight: 600;
-            padding: 3px 8px;
-            border-radius: 20px;
-            background: var(--green-100);
-            color: var(--green-700);
-        }
-
-        /* ===== BUTTONS ===== */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 14px 24px;
-            border-radius: var(--radius-md);
-            border: none;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            width: 100%;
-        }
-
-        .btn:active {
-            transform: scale(0.97);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--green-700), var(--green-600));
-            color: white;
-            box-shadow: 0 2px 8px rgba(45,80,22,0.3);
-        }
-
-        .btn-secondary {
-            background: var(--sand-100);
-            color: var(--text-primary);
-            border: 1.5px solid var(--sand-300);
-        }
-
-        .btn-danger {
-            background: var(--danger-light);
-            color: var(--danger);
-        }
-
-        .btn-small {
-            padding: 8px 14px;
-            font-size: 13px;
-            width: auto;
-        }
-
-        .btn-icon {
-            width: 40px;
-            height: 40px;
-            padding: 0;
-            border-radius: var(--radius-sm);
-        }
-
-        /* ===== FORMS ===== */
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid var(--sand-300);
-            border-radius: var(--radius-md);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 16px;
-            color: var(--text-primary);
-            background: white;
-            transition: border-color 0.2s;
-            -webkit-appearance: none;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--green-500);
-            box-shadow: 0 0 0 3px rgba(95,163,46,0.15);
-        }
-
-        .form-input::placeholder {
-            color: var(--text-tertiary);
-        }
-
-        /* ===== FLOATING ACTION BUTTON ===== */
-        .fab {
-            position: fixed;
-            bottom: calc(84px + var(--safe-bottom));
-            right: 20px;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--green-700), var(--green-500));
-            color: white;
-            border: none;
-            box-shadow: 0 4px 16px rgba(45,80,22,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            z-index: 50;
-        }
-
-        .fab:active {
-            transform: scale(0.9);
-        }
-
-        .fab svg {
-            width: 28px;
-            height: 28px;
-        }
-
-        /* ===== MODAL ===== */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(4px);
-            z-index: 200;
-            display: flex;
-            align-items: flex-end;
-            animation: fadeIn 0.2s ease;
-        }
-
-        .modal {
-            background: white;
-            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-            width: 100%;
-            max-height: 90dvh;
-            overflow-y: auto;
-            padding: 24px 20px calc(20px + var(--safe-bottom));
-            animation: slideUp 0.3s ease;
-        }
-
-        .modal-handle {
-            width: 36px;
-            height: 4px;
-            background: var(--sand-300);
-            border-radius: 2px;
-            margin: 0 auto 20px;
-        }
-
-        .modal-title {
-            font-family: 'DM Serif Display', serif;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
-        /* ===== EMPTY STATE ===== */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        .empty-state svg {
-            width: 80px;
-            height: 80px;
-            color: var(--sand-300);
-            margin-bottom: 16px;
-        }
-
-        .empty-state h3 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 20px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
-
-        .empty-state p {
-            font-size: 14px;
-            color: var(--text-tertiary);
-            line-height: 1.5;
-        }
-
-        /* ===== SEARCH ===== */
-        .search-bar {
-            position: relative;
-            margin-bottom: 16px;
-        }
-
-        .search-bar svg {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 18px;
-            height: 18px;
-            color: var(--text-tertiary);
-        }
-
-        .search-bar input {
-            width: 100%;
-            padding: 12px 14px 12px 42px;
-            border: 1.5px solid var(--sand-200);
-            border-radius: var(--radius-md);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 15px;
-            background: white;
-            color: var(--text-primary);
-            -webkit-appearance: none;
-        }
-
-        .search-bar input:focus {
-            outline: none;
-            border-color: var(--green-500);
-        }
-
-        /* ===== GPS BUTTON ===== */
-        .gps-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            padding: 14px 16px;
-            border: 1.5px dashed var(--green-400);
-            border-radius: var(--radius-md);
-            background: var(--green-50);
-            color: var(--green-700);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .gps-btn:active {
-            background: var(--green-100);
-        }
-
-        .gps-btn svg {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-        }
-
-        .gps-btn.loading {
-            opacity: 0.7;
-            pointer-events: none;
-        }
-
-        .gps-btn.success {
-            border-color: var(--success);
-            background: #e8f5e9;
-            color: var(--success);
-        }
-
-        /* ===== SWIPE ACTIONS ===== */
-        .swipe-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: var(--radius-lg);
-            margin-bottom: 12px;
-        }
-
-        .swipe-actions {
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            display: flex;
-        }
-
-        .swipe-action {
-            width: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            cursor: pointer;
-        }
-
-        .swipe-action.edit {
-            background: var(--green-600);
-            color: white;
-        }
-
-        .swipe-action.delete {
-            background: var(--danger);
-            color: white;
-        }
-
-        /* ===== SECTION TITLE ===== */
-        .section-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 12px;
-            padding-left: 4px;
-        }
-
-        /* ===== TOAST ===== */
-        .toast {
-            position: fixed;
-            top: calc(var(--safe-top) + 60px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--green-900);
-            color: white;
-            padding: 12px 20px;
-            border-radius: var(--radius-md);
-            font-size: 14px;
-            font-weight: 500;
-            z-index: 300;
-            animation: toastIn 0.3s ease, toastOut 0.3s ease 2.5s forwards;
-            box-shadow: var(--shadow-lg);
-        }
-
-        @keyframes toastIn {
-            from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-
-        @keyframes toastOut {
-            from { opacity: 1; transform: translateX(-50%) translateY(0); }
-            to { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-        }
-
-        /* ===== CONFIRM DIALOG ===== */
-        .confirm-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
-            z-index: 300;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            animation: fadeIn 0.2s ease;
-        }
-
-        .confirm-dialog {
-            background: white;
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            width: 100%;
-            max-width: 320px;
-            text-align: center;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .confirm-dialog h3 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 20px;
-            margin-bottom: 8px;
-        }
-
-        .confirm-dialog p {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .confirm-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .confirm-actions .btn {
-            flex: 1;
-        }
-
-        /* ===== RATE INPUT ===== */
-        .rate-input-group {
-            position: relative;
-        }
-
-        .rate-input-group .form-input {
-            padding-left: 28px;
-        }
-
-        .rate-input-group .currency {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-            font-weight: 600;
-            font-size: 16px;
-            pointer-events: none;
-            /* Offset the label */
-            margin-top: 10px;
-        }
-
-        /* ===== TAB COUNTER ===== */
-        .tab-count {
-            font-size: 11px;
-            font-weight: 700;
-            background: var(--green-600);
-            color: white;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            top: 2px;
-            right: 50%;
-            margin-right: -18px;
-        }
-
-        .nav-item {
-            position: relative;
-        }
-
-        /* ===== UTILITY ===== */
-        .flex-between {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .mt-8 { margin-top: 8px; }
-        .mt-12 { margin-top: 12px; }
-        .mt-16 { margin-top: 16px; }
-        .mt-24 { margin-top: 24px; }
-        .mb-8 { margin-bottom: 8px; }
-        .mb-16 { margin-bottom: 16px; }
-        .gap-8 { gap: 8px; }
-        .gap-12 { gap: 12px; }
-        .text-center { text-align: center; }
-
-        .icon-btn {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            background: var(--sand-100);
-            border-radius: var(--radius-sm);
-            color: var(--text-secondary);
-            cursor: pointer;
-        }
-
-        .icon-btn:active {
-            background: var(--sand-200);
-        }
-
-        .tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .tag-green {
-            background: var(--green-100);
-            color: var(--green-700);
-        }
-
-        .divider {
-            height: 1px;
-            background: var(--sand-200);
-            margin: 16px 0;
-        }
-
-        /* ===== WERKLOG TIMER ===== */
-        .timer-card {
-            background: linear-gradient(135deg, var(--green-800), var(--green-600));
-            border-radius: var(--radius-xl);
-            padding: 24px;
-            color: white;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(45,80,22,0.3);
-        }
-
-        .timer-card.idle {
-            background: white;
-            color: var(--text-primary);
-            border: 2px dashed var(--sand-300);
-            box-shadow: none;
-            text-align: center;
-        }
-
-        .timer-display {
-            font-family: 'DM Sans', monospace;
-            font-size: 48px;
-            font-weight: 700;
-            text-align: center;
-            letter-spacing: 2px;
-            margin: 12px 0;
-        }
-
-        .timer-card.idle .timer-display {
-            color: var(--text-tertiary);
-            font-size: 40px;
-        }
-
-        .timer-client {
-            text-align: center;
-            font-size: 14px;
-            opacity: 0.85;
-            margin-bottom: 4px;
-        }
-
-        .timer-client strong {
-            font-size: 18px;
-            display: block;
-            margin-top: 2px;
-            opacity: 1;
-        }
-
-        .timer-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 16px;
-        }
-
-        .timer-actions .btn {
-            flex: 1;
-        }
-
-        .btn-white {
-            background: white;
-            color: var(--green-800);
-            font-weight: 600;
-        }
-
-        .btn-white:active {
-            background: var(--green-50);
-        }
-
-        .btn-stop {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 1.5px solid rgba(255,255,255,0.4);
-        }
-
-        .btn-stop:active {
-            background: rgba(255,255,255,0.3);
-        }
-
-        /* ===== CLIENT PICKER ===== */
-        .client-picker {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid var(--sand-300);
-            border-radius: var(--radius-md);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 16px;
-            color: var(--text-primary);
-            background: white;
-            -webkit-appearance: none;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6b6f' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-            padding-right: 36px;
-        }
-
-        .client-picker:focus {
-            outline: none;
-            border-color: var(--green-500);
-            box-shadow: 0 0 0 3px rgba(95,163,46,0.15);
-        }
-
-        /* ===== WERKLOG ENTRY CARD ===== */
-        .werklog-entry {
-            background: white;
-            border-radius: var(--radius-lg);
-            padding: 14px 16px;
-            margin-bottom: 10px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--sand-200);
-        }
-
-        .werklog-entry-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .werklog-entry-client {
-            font-weight: 600;
-            font-size: 15px;
-        }
-
-        .werklog-entry-date {
-            font-size: 12px;
-            color: var(--text-tertiary);
-            margin-top: 2px;
-        }
-
-        .werklog-entry-details {
-            display: flex;
-            gap: 16px;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid var(--sand-200);
-        }
-
-        .werklog-detail {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-
-        .werklog-detail svg {
-            width: 14px;
-            height: 14px;
-            color: var(--text-tertiary);
-        }
-
-        .werklog-detail strong {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .werklog-entry-note {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-top: 8px;
-            font-style: italic;
-        }
-
-        .werklog-earnings {
-            font-weight: 700;
-            color: var(--green-700);
-            font-size: 15px;
-        }
-
-        /* ===== DATE GROUP ===== */
-        .date-group-header {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin: 16px 0 8px 4px;
-        }
-
-        .date-group-header:first-child {
-            margin-top: 0;
-        }
-
-        /* ===== PULSE ANIMATION ===== */
-        .pulse-dot {
-            width: 10px;
-            height: 10px;
-            background: #ff4444;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 6px;
-            animation: pulse 1.5s ease infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-        }
-
-        /* ===== START WORK BUTTON ===== */
-        .start-work-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: var(--radius-lg);
-            background: linear-gradient(135deg, var(--green-700), var(--green-500));
-            color: white;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(45,80,22,0.3);
-            transition: all 0.2s;
-        }
-
-        .start-work-btn:active {
-            transform: scale(0.97);
-        }
-
-        .start-work-btn svg {
-            width: 22px;
-            height: 22px;
-        }
-
-        /* ===== FILTER TABS ===== */
-        .filter-tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-
-        .filter-tabs::-webkit-scrollbar { display: none; }
-
-        .filter-tab {
-            padding: 7px 14px;
-            border-radius: 20px;
-            border: 1.5px solid var(--sand-300);
-            background: white;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
-
-        .filter-tab.active {
-            background: var(--green-700);
-            color: white;
-            border-color: var(--green-700);
-        }
+            --green-900:#1a3a0a;--green-800:#2d5016;--green-700:#3d6b1e;--green-600:#4e8726;
+            --green-500:#5fa32e;--green-400:#7abc4a;--green-300:#a3d477;--green-200:#c8e8a8;
+            --green-100:#e8f5d8;--green-50:#f4faea;
+            --sand-100:#faf8f5;--sand-200:#f0ece5;--sand-300:#e0d9cc;--sand-400:#c4b9a6;
+            --text-primary:#1c1c1e;--text-secondary:#6b6b6f;--text-tertiary:#aeaeb2;
+            --danger:#d32f2f;--danger-light:#ffeaea;--warning:#f9a825;--warning-light:#fff8e1;
+            --success:#2e7d32;--blue:#1976d2;--blue-light:#e3f2fd;
+            --radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;
+            --shadow-sm:0 1px 3px rgba(0,0,0,0.06);--shadow-md:0 4px 12px rgba(0,0,0,0.08);--shadow-lg:0 8px 30px rgba(0,0,0,0.12);
+            --safe-top:env(safe-area-inset-top,20px);--safe-bottom:env(safe-area-inset-bottom,0px);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+        body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--sand-100);color:var(--text-primary);min-height:100dvh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+        .app{min-height:100dvh;display:flex;flex-direction:column;padding-bottom:calc(72px + var(--safe-bottom))}
+        .header{position:sticky;top:0;z-index:100;background:linear-gradient(135deg,var(--green-800),var(--green-700));padding:calc(var(--safe-top) + 8px) 20px 16px;color:white}
+        .header h1{font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;letter-spacing:-0.3px}
+        .header p{font-size:13px;opacity:0.75;margin-top:2px;font-weight:300}
+        .content{flex:1;padding:16px;padding-bottom:24px}
+        .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:white;border-top:1px solid var(--sand-200);display:flex;padding-bottom:var(--safe-bottom);box-shadow:0 -2px 20px rgba(0,0,0,0.06)}
+        .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 0 6px;gap:3px;border:none;background:none;color:var(--text-tertiary);font-size:10px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:color 0.2s;position:relative}
+        .nav-item.active{color:var(--green-700)}
+        .nav-item svg{width:24px;height:24px}
+        .nav-dot{width:6px;height:6px;border-radius:50%;background:var(--danger);position:absolute;top:4px;right:50%;margin-right:-16px}
+        .card{background:white;border-radius:var(--radius-lg);padding:16px;margin-bottom:12px;box-shadow:var(--shadow-sm);border:1px solid var(--sand-200);transition:transform 0.15s}
+        .card:active{transform:scale(0.985)}
+        .card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+        .card-title{font-weight:600;font-size:16px}
+        .card-subtitle{font-size:13px;color:var(--text-secondary);margin-top:2px}
+        .card-badge{font-size:11px;font-weight:600;padding:3px 8px;border-radius:20px;background:var(--green-100);color:var(--green-700)}
+        .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:var(--radius-md);border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s;width:100%}
+        .btn:active{transform:scale(0.97)}
+        .btn-primary{background:linear-gradient(135deg,var(--green-700),var(--green-600));color:white;box-shadow:0 2px 8px rgba(45,80,22,0.3)}
+        .btn-secondary{background:var(--sand-100);color:var(--text-primary);border:1.5px solid var(--sand-300)}
+        .btn-danger{background:var(--danger-light);color:var(--danger)}
+        .btn[disabled]{opacity:0.5;pointer-events:none}
+        .form-group{margin-bottom:16px}
+        .form-label{display:block;font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px}
+        .form-input{width:100%;padding:12px 14px;border:1.5px solid var(--sand-300);border-radius:var(--radius-md);font-family:'DM Sans',sans-serif;font-size:16px;color:var(--text-primary);background:white;transition:border-color 0.2s;-webkit-appearance:none}
+        .form-input:focus{outline:none;border-color:var(--green-500);box-shadow:0 0 0 3px rgba(95,163,46,0.15)}
+        .form-input::placeholder{color:var(--text-tertiary)}
+        select.form-input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6b6f' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+        .fab{position:fixed;bottom:calc(84px + var(--safe-bottom));right:20px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--green-700),var(--green-500));color:white;border:none;box-shadow:0 4px 16px rgba(45,80,22,0.4);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;z-index:50}
+        .fab:active{transform:scale(0.9)}
+        .fab svg{width:28px;height:28px}
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);z-index:200;display:flex;align-items:flex-end;animation:fadeIn 0.2s ease}
+        .modal{background:white;border-radius:var(--radius-xl) var(--radius-xl) 0 0;width:100%;max-height:90dvh;overflow-y:auto;padding:24px 20px calc(20px + var(--safe-bottom));animation:slideUp 0.3s ease}
+        .modal-handle{width:36px;height:4px;background:var(--sand-300);border-radius:2px;margin:0 auto 20px}
+        .modal-title{font-family:'DM Serif Display',serif;font-size:24px;margin-bottom:20px}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+        .empty-state{text-align:center;padding:60px 20px}
+        .empty-state svg{width:80px;height:80px;color:var(--sand-300);margin-bottom:16px}
+        .empty-state h3{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text-secondary);margin-bottom:8px}
+        .empty-state p{font-size:14px;color:var(--text-tertiary);line-height:1.5}
+        .search-bar{position:relative;margin-bottom:16px}
+        .search-bar svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--text-tertiary)}
+        .search-bar input{width:100%;padding:12px 14px 12px 42px;border:1.5px solid var(--sand-200);border-radius:var(--radius-md);font-family:'DM Sans',sans-serif;font-size:15px;background:white;color:var(--text-primary);-webkit-appearance:none}
+        .search-bar input:focus{outline:none;border-color:var(--green-500)}
+        .gps-btn{display:flex;align-items:center;gap:10px;width:100%;padding:14px 16px;border:1.5px dashed var(--green-400);border-radius:var(--radius-md);background:var(--green-50);color:var(--green-700);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s}
+        .gps-btn:active{background:var(--green-100)}
+        .gps-btn svg{width:20px;height:20px;flex-shrink:0}
+        .gps-btn.loading{opacity:0.7;pointer-events:none}
+        .gps-btn.success{border-color:var(--success);background:#e8f5e9;color:var(--success)}
+        .toast{position:fixed;top:calc(var(--safe-top) + 60px);left:50%;transform:translateX(-50%);background:var(--green-900);color:white;padding:12px 20px;border-radius:var(--radius-md);font-size:14px;font-weight:500;z-index:300;animation:toastIn 0.3s ease,toastOut 0.3s ease 2.5s forwards;box-shadow:var(--shadow-lg);white-space:nowrap}
+        @keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+        @keyframes toastOut{from{opacity:1;transform:translateX(-50%) translateY(0)}to{opacity:0;transform:translateX(-50%) translateY(-20px)}}
+        .confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn 0.2s ease}
+        .confirm-dialog{background:white;border-radius:var(--radius-lg);padding:24px;width:100%;max-width:320px;text-align:center;box-shadow:var(--shadow-lg)}
+        .confirm-dialog h3{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:8px}
+        .confirm-dialog p{font-size:14px;color:var(--text-secondary);margin-bottom:20px;line-height:1.5}
+        .confirm-actions{display:flex;gap:10px}
+        .confirm-actions .btn{flex:1}
+        .rate-input-group{position:relative}
+        .rate-input-group .form-input{padding-left:28px}
+        .rate-input-group .currency{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-secondary);font-weight:600;font-size:16px;pointer-events:none;margin-top:10px}
+
+        /* WERKLOG */
+        .clock-display{text-align:center;padding:32px 20px;background:white;border-radius:var(--radius-xl);box-shadow:var(--shadow-md);border:1px solid var(--sand-200);margin-bottom:16px}
+        .clock-time{font-family:'DM Serif Display',serif;font-size:56px;color:var(--green-800);letter-spacing:-2px;line-height:1}
+        .clock-label{font-size:13px;color:var(--text-tertiary);margin-top:8px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px}
+        .clock-client{font-size:18px;font-weight:600;color:var(--text-primary);margin-top:12px}
+        .clock-address{font-size:13px;color:var(--text-secondary);margin-top:2px}
+        .status-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;margin-bottom:16px}
+        .status-pill.active{background:var(--green-100);color:var(--green-700)}
+        .status-pill.paused{background:var(--warning-light);color:#e65100}
+        .status-dot{width:8px;height:8px;border-radius:50%}
+        .status-pill.active .status-dot{background:var(--green-500);animation:pulse 2s infinite}
+        .status-pill.paused .status-dot{background:var(--warning)}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+        .action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+        .action-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:18px 12px;border-radius:var(--radius-lg);border:1.5px solid var(--sand-300);background:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--text-primary);cursor:pointer;transition:all 0.2s}
+        .action-btn:active{transform:scale(0.96)}
+        .action-btn svg{width:24px;height:24px}
+        .action-btn.highlight{border-color:var(--green-400);background:var(--green-50);color:var(--green-700)}
+        .action-btn.warn{border-color:#ffcc80;background:var(--warning-light);color:#e65100}
+        .action-btn.stop{border-color:#ef9a9a;background:var(--danger-light);color:var(--danger)}
+        .big-clock-btn{width:160px;height:160px;border-radius:50%;border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all 0.2s;margin:24px auto;font-family:'DM Sans',sans-serif}
+        .big-clock-btn:active{transform:scale(0.93)}
+        .big-clock-btn.start{background:linear-gradient(145deg,var(--green-600),var(--green-700));color:white;box-shadow:0 6px 24px rgba(45,80,22,0.4)}
+        .big-clock-btn svg{width:40px;height:40px}
+        .big-clock-btn span{font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+        .break-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--sand-100);border-radius:var(--radius-md);margin-bottom:8px;font-size:14px}
+        .break-item .break-times{color:var(--text-secondary);font-weight:500;display:flex;align-items:center;gap:6px}
+        .break-item .break-times svg{width:16px;height:16px;color:var(--warning)}
+        .break-item .break-dur{color:var(--text-tertiary);font-size:12px;font-weight:600}
+        .log-card{background:white;border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow-sm);border:1px solid var(--sand-200)}
+        .log-top{display:flex;justify-content:space-between;align-items:flex-start}
+        .log-client{font-weight:600;font-size:15px}
+        .log-date{font-size:12px;color:var(--text-tertiary)}
+        .log-details{display:flex;gap:16px;margin-top:8px;font-size:13px;color:var(--text-secondary);flex-wrap:wrap}
+        .log-detail{display:flex;align-items:center;gap:4px}
+        .log-detail svg{width:14px;height:14px}
+        .log-total{font-weight:700;color:var(--green-700);font-size:15px}
+        .client-select-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:white;border:1.5px solid var(--sand-200);border-radius:var(--radius-md);margin-bottom:8px;cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif}
+        .client-select-item:active{transform:scale(0.98)}
+        .csi-name{font-weight:600;font-size:15px}
+        .csi-addr{font-size:12px;color:var(--text-secondary);margin-top:2px}
+        .csi-dist{font-size:12px;color:var(--green-600);font-weight:600}
+
+        .section-title{font-size:13px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px;padding-left:4px}
+        .flex-between{display:flex;justify-content:space-between;align-items:center}
+        .mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-16{margin-top:16px}.mt-24{margin-top:24px}
+        .mb-8{margin-bottom:8px}.mb-16{margin-bottom:16px}
+        .text-center{text-align:center}
+        .divider{height:1px;background:var(--sand-200);margin:16px 0}
+        .icon-btn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:none;background:var(--sand-100);border-radius:var(--radius-sm);color:var(--text-secondary);cursor:pointer}
+        .icon-btn:active{background:var(--sand-200)}
+        .tab-bar{display:flex;gap:4px;background:var(--sand-200);padding:3px;border-radius:var(--radius-md);margin-bottom:16px}
+        .tab-btn{flex:1;padding:8px;border:none;background:none;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--text-tertiary);cursor:pointer;transition:all 0.2s}
+        .tab-btn.active{background:white;color:var(--text-primary);box-shadow:var(--shadow-sm)}
     </style>
 </head>
 <body>
-    <div id="app"></div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
-
-    <script type="text/babel">
-        const { useState, useEffect, useCallback, useRef } = React;
-
-        // ===== ICONS =====
-        const Icons = {
-            clock: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
-            users: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
-            receipt: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v.5"/><path d="M12 6v.5"/></svg>,
-            chart: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>,
-            plus: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
-            search: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>,
-            mapPin: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>,
-            navigation: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>,
-            edit: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>,
-            trash: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>,
-            x: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>,
-            check: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
-            loader: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/></path></svg>,
-            leaf: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>,
-            phone: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>,
-            euro: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 10h12"/><path d="M4 14h9"/><path d="M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2"/></svg>,
-            play: <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="6 3 20 12 6 21 6 3"/></svg>,
-            stop: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>,
-            calendar: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>,
-            note: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>,
-        };
-
-        // ===== LOCAL STORAGE HELPER =====
-        function useLocalStorage(key, initialValue) {
-            const [value, setValue] = useState(() => {
-                try {
-                    const item = localStorage.getItem(key);
-                    return item ? JSON.parse(item) : initialValue;
-                } catch {
-                    return initialValue;
-                }
-            });
-
-            useEffect(() => {
-                try {
-                    localStorage.setItem(key, JSON.stringify(value));
-                } catch (e) {
-                    console.error('Opslag fout:', e);
-                }
-            }, [key, value]);
-
-            return [value, setValue];
-        }
-
-        // ===== TOAST COMPONENT =====
-        function Toast({ message, onDone }) {
-            useEffect(() => {
-                const t = setTimeout(onDone, 3000);
-                return () => clearTimeout(t);
-            }, [onDone]);
-            return <div className="toast">{message}</div>;
-        }
-
-        // ===== CONFIRM DIALOG =====
-        function ConfirmDialog({ title, message, onConfirm, onCancel, confirmLabel = "Verwijderen", danger = true }) {
-            return (
-                <div className="confirm-overlay" onClick={onCancel}>
-                    <div className="confirm-dialog" onClick={e => e.stopPropagation()}>
-                        <h3>{title}</h3>
-                        <p>{message}</p>
-                        <div className="confirm-actions">
-                            <button className="btn btn-secondary" onClick={onCancel}>Annuleer</button>
-                            <button className={`btn ${danger ? 'btn-danger' : 'btn-primary'}`} onClick={onConfirm}>
-                                {confirmLabel}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        // ===== CLIENT FORM MODAL =====
-        function ClientModal({ client, onSave, onClose }) {
-            const [naam, setNaam] = useState(client?.naam || '');
-            const [bijnaam, setBijnaam] = useState(client?.bijnaam || '');
-            const [adres, setAdres] = useState(client?.adres || '');
-            const [telefoon, setTelefoon] = useState(client?.telefoon || '');
-            const [uurtarief, setUurtarief] = useState(client?.uurtarief || '35');
-            const [lat, setLat] = useState(client?.lat || null);
-            const [lng, setLng] = useState(client?.lng || null);
-            const [gpsStatus, setGpsStatus] = useState('idle'); // idle, loading, success, error
-
-            const getLocation = () => {
-                if (!navigator.geolocation) {
-                    setGpsStatus('error');
-                    return;
-                }
-                setGpsStatus('loading');
-                navigator.geolocation.getCurrentPosition(
-                    async (pos) => {
-                        const { latitude, longitude } = pos.coords;
-                        setLat(latitude);
-                        setLng(longitude);
-                        // Try reverse geocoding
-                        try {
-                            const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1`);
-                            const data = await resp.json();
-                            if (data.display_name) {
-                                // Build a clean address
-                                const a = data.address;
-                                const parts = [
-                                    a.road && a.house_number ? `${a.road} ${a.house_number}` : a.road,
-                                    a.postcode,
-                                    a.city || a.town || a.village
-                                ].filter(Boolean);
-                                setAdres(parts.join(', '));
-                            }
-                        } catch {
-                            // GPS coords saved, just no address
-                        }
-                        setGpsStatus('success');
-                    },
-                    () => setGpsStatus('error'),
-                    { enableHighAccuracy: true, timeout: 10000 }
-                );
-            };
-
-            const handleSave = () => {
-                if (!naam.trim() && !bijnaam.trim()) return;
-                onSave({
-                    id: client?.id || Date.now().toString(),
-                    naam: naam.trim(),
-                    bijnaam: bijnaam.trim(),
-                    adres: adres.trim(),
-                    telefoon: telefoon.trim(),
-                    uurtarief: parseFloat(uurtarief) || 35,
-                    lat, lng,
-                    aangemaakt: client?.aangemaakt || new Date().toISOString(),
-                });
-            };
-
-            const isEdit = !!client?.id;
-
-            return (
-                <div className="modal-overlay" onClick={onClose}>
-                    <div className="modal" onClick={e => e.stopPropagation()}>
-                        <div className="modal-handle" />
-                        <div className="flex-between mb-16">
-                            <h2 className="modal-title">{isEdit ? 'Klant bewerken' : 'Nieuwe klant'}</h2>
-                            <button className="icon-btn" onClick={onClose} style={{width:32,height:32}}>
-                                {Icons.x}
-                            </button>
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label">Naam</label>
-                            <input className="form-input" value={naam} onChange={e => setNaam(e.target.value)}
-                                placeholder="Volledige naam" autoFocus />
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label">Bijnaam</label>
-                            <input className="form-input" value={bijnaam} onChange={e => setBijnaam(e.target.value)}
-                                placeholder="bv. Mevr. Janssen" />
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label">Adres</label>
-                            <input className="form-input" value={adres} onChange={e => setAdres(e.target.value)}
-                                placeholder="Straat, postcode, plaats" />
-                            <div className="mt-8">
-                                <button 
-                                    className={`gps-btn ${gpsStatus}`}
-                                    onClick={getLocation}
-                                    disabled={gpsStatus === 'loading'}
-                                >
-                                    {gpsStatus === 'loading' ? Icons.loader : 
-                                     gpsStatus === 'success' ? Icons.check : Icons.navigation}
-                                    {gpsStatus === 'loading' ? 'Locatie ophalen...' :
-                                     gpsStatus === 'success' ? 'Locatie gevonden!' :
-                                     gpsStatus === 'error' ? 'Opnieuw proberen' :
-                                     'Gebruik huidige locatie'}
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label">Telefoon</label>
-                            <input className="form-input" value={telefoon} onChange={e => setTelefoon(e.target.value)}
-                                placeholder="06-12345678" type="tel" />
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label">Uurtarief</label>
-                            <div className="rate-input-group">
-                                <span className="currency">€</span>
-                                <input className="form-input" value={uurtarief}
-                                    onChange={e => setUurtarief(e.target.value)}
-                                    placeholder="35" type="number" inputMode="decimal" step="0.50" />
-                            </div>
-                        </div>
-
-                        <button className="btn btn-primary mt-8" onClick={handleSave}>
-                            {Icons.check}
-                            {isEdit ? 'Opslaan' : 'Klant toevoegen'}
-                        </button>
-                    </div>
-                </div>
-            );
-        }
-
-        // ===== CLIENT CARD =====
-        function ClientCard({ client, onEdit, onDelete }) {
-            return (
-                <div className="card">
-                    <div className="card-header">
-                        <div>
-                            <div className="card-title">
-                                {client.bijnaam || client.naam}
-                            </div>
-                            {client.bijnaam && client.naam && (
-                                <div className="card-subtitle">{client.naam}</div>
-                            )}
-                        </div>
-                        <span className="card-badge">€{client.uurtarief}/u</span>
-                    </div>
-                    
-                    {client.adres && (
-                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 6, marginTop: 6 }}>
-                            <span style={{ color: 'var(--text-tertiary)', flexShrink: 0, width: 16, marginTop: 1 }}>
-                                {Icons.mapPin}
-                            </span>
-                            <span style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-                                {client.adres}
-                            </span>
-                        </div>
-                    )}
-                    
-                    {client.telefoon && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 4 }}>
-                            <span style={{ color: 'var(--text-tertiary)', flexShrink: 0, width: 16 }}>
-                                {Icons.phone}
-                            </span>
-                            <a href={`tel:${client.telefoon}`} style={{ fontSize: 13, color: 'var(--green-700)', textDecoration: 'none' }}>
-                                {client.telefoon}
-                            </a>
-                        </div>
-                    )}
-
-                    <div style={{ display: 'flex', gap: 8, marginTop: 12, justifyContent: 'flex-end' }}>
-                        <button className="icon-btn" onClick={() => onEdit(client)} style={{ color: 'var(--green-700)' }}>
-                            {Icons.edit}
-                        </button>
-                        <button className="icon-btn" onClick={() => onDelete(client)} style={{ color: 'var(--danger)' }}>
-                            {Icons.trash}
-                        </button>
-                    </div>
-                </div>
-            );
-        }
-
-        // ===== KLANTEN PAGE =====
-        function KlantenPage({ clients, setClients, showToast }) {
-            const [showModal, setShowModal] = useState(false);
-            const [editClient, setEditClient] = useState(null);
-            const [confirmDelete, setConfirmDelete] = useState(null);
-            const [search, setSearch] = useState('');
-
-            const filtered = clients.filter(c => {
-                const q = search.toLowerCase();
-                return c.naam.toLowerCase().includes(q) || 
-                       c.bijnaam.toLowerCase().includes(q) ||
-                       c.adres.toLowerCase().includes(q);
-            });
-
-            const handleSave = (client) => {
-                setClients(prev => {
-                    const exists = prev.find(c => c.id === client.id);
-                    if (exists) {
-                        return prev.map(c => c.id === client.id ? client : c);
-                    }
-                    return [...prev, client];
-                });
-                setShowModal(false);
-                setEditClient(null);
-                showToast(editClient ? 'Klant bijgewerkt' : 'Klant toegevoegd');
-            };
-
-            const handleDelete = () => {
-                setClients(prev => prev.filter(c => c.id !== confirmDelete.id));
-                setConfirmDelete(null);
-                showToast('Klant verwijderd');
-            };
-
-            const handleEdit = (client) => {
-                setEditClient(client);
-                setShowModal(true);
-            };
-
-            return (
-                <>
-                    {clients.length > 0 && (
-                        <div className="search-bar">
-                            {Icons.search}
-                            <input 
-                                placeholder="Zoek klant..." 
-                                value={search} 
-                                onChange={e => setSearch(e.target.value)} 
-                            />
-                        </div>
-                    )}
-
-                    <div className="section-title">
-                        {filtered.length} klant{filtered.length !== 1 ? 'en' : ''}
-                    </div>
-
-                    {clients.length === 0 ? (
-                        <div className="empty-state">
-                            <div style={{ color: 'var(--green-300)' }}>{Icons.leaf}</div>
-                            <h3>Nog geen klanten</h3>
-                            <p>Voeg je eerste klant toe met de + knop hieronder</p>
-                        </div>
-                    ) : filtered.length === 0 ? (
-                        <div className="empty-state">
-                            {Icons.search}
-                            <h3>Geen resultaten</h3>
-                            <p>Probeer een andere zoekterm</p>
-                        </div>
-                    ) : (
-                        filtered.map(client => (
-                            <ClientCard
-                                key={client.id}
-                                client={client}
-                                onEdit={handleEdit}
-                                onDelete={setConfirmDelete}
-                            />
-                        ))
-                    )}
-
-                    <button className="fab" onClick={() => { setEditClient(null); setShowModal(true); }}>
-                        {Icons.plus}
-                    </button>
-
-                    {showModal && (
-                        <ClientModal
-                            client={editClient}
-                            onSave={handleSave}
-                            onClose={() => { setShowModal(false); setEditClient(null); }}
-                        />
-                    )}
-
-                    {confirmDelete && (
-                        <ConfirmDialog
-                            title="Klant verwijderen?"
-                            message={`Weet je zeker dat je "${confirmDelete.bijnaam || confirmDelete.naam}" wilt verwijderen? Dit kan niet ongedaan worden.`}
-                            onConfirm={handleDelete}
-                            onCancel={() => setConfirmDelete(null)}
-                        />
-                    )}
-                </>
-            );
-        }
-
-        // ===== TIME FORMATTING HELPERS =====
-        function formatDuration(ms) {
-            const totalSec = Math.floor(ms / 1000);
-            const h = Math.floor(totalSec / 3600);
-            const m = Math.floor((totalSec % 3600) / 60);
-            const s = totalSec % 60;
-            return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-        }
-
-        function formatDurationShort(ms) {
-            const totalMin = Math.floor(ms / 60000);
-            const h = Math.floor(totalMin / 60);
-            const m = totalMin % 60;
-            if (h === 0) return `${m}m`;
-            return m > 0 ? `${h}u ${m}m` : `${h}u`;
-        }
-
-        function formatTime(isoStr) {
-            const d = new Date(isoStr);
-            return d.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
-        }
-
-        function formatDate(isoStr) {
-            const d = new Date(isoStr);
-            const now = new Date();
-            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-            const date = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-            const diffDays = Math.round((today - date) / 86400000);
-
-            if (diffDays === 0) return 'Vandaag';
-            if (diffDays === 1) return 'Gisteren';
-            if (diffDays < 7) return d.toLocaleDateString('nl-NL', { weekday: 'long' });
-            return d.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
-        }
-
-        function getDateKey(isoStr) {
-            const d = new Date(isoStr);
-            return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-        }
-
-        // ===== WERKLOG MODAL (handmatige invoer) =====
-        function WerklogModal({ entry, clients, onSave, onClose }) {
-            const [clientId, setClientId] = useState(entry?.clientId || '');
-            const [datum, setDatum] = useState(() => {
-                if (entry?.startTijd) return getDateKey(entry.startTijd);
-                return new Date().toISOString().slice(0,10);
-            });
-            const [startTijd, setStartTijd] = useState(() => {
-                if (entry?.startTijd) return formatTime(entry.startTijd);
-                return '09:00';
-            });
-            const [eindTijd, setEindTijd] = useState(() => {
-                if (entry?.eindTijd) return formatTime(entry.eindTijd);
-                return '12:00';
-            });
-            const [notitie, setNotitie] = useState(entry?.notitie || '');
-
-            const handleSave = () => {
-                if (!clientId) return;
-                const start = new Date(`${datum}T${startTijd}:00`);
-                const eind = new Date(`${datum}T${eindTijd}:00`);
-                if (eind <= start) return;
-
-                onSave({
-                    id: entry?.id || Date.now().toString(),
-                    clientId,
-                    startTijd: start.toISOString(),
-                    eindTijd: eind.toISOString(),
-                    notitie: notitie.trim(),
-                    aangemaakt: entry?.aangemaakt || new Date().toISOString(),
-                });
-            };
-
-            const isEdit = !!entry?.id;
-
-            return (
-                <div className="modal-overlay" onClick={onClose}>
-                    <div className="modal" onClick={e => e.stopPropagation()}>
-                        <div className="modal-handle" />
-                        <div className="flex-between mb-16">
-                            <h2 className="modal-title">{isEdit ? 'Uren bewerken' : 'Uren invoeren'}</h2>
-                            <button className="icon-btn" onClick={onClose} style={{width:32,height:32}}>
-                                {Icons.x}
-                            </button>
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label">Klant</label>
-                            <select className="client-picker" value={clientId} onChange={e => setClientId(e.target.value)}>
-                                <option value="">Selecteer een klant...</option>
-                                {clients.map(c => (
-                                    <option key={c.id} value={c.id}>{c.bijnaam || c.naam}</option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label">Datum</label>
-                            <input className="form-input" type="date" value={datum}
-                                onChange={e => setDatum(e.target.value)} />
-                        </div>
-
-                        <div style={{ display: 'flex', gap: 12 }}>
-                            <div className="form-group" style={{ flex: 1 }}>
-                                <label className="form-label">Start</label>
-                                <input className="form-input" type="time" value={startTijd}
-                                    onChange={e => setStartTijd(e.target.value)} />
-                            </div>
-                            <div className="form-group" style={{ flex: 1 }}>
-                                <label className="form-label">Eind</label>
-                                <input className="form-input" type="time" value={eindTijd}
-                                    onChange={e => setEindTijd(e.target.value)} />
-                            </div>
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label">Notitie (optioneel)</label>
-                            <input className="form-input" value={notitie} onChange={e => setNotitie(e.target.value)}
-                                placeholder="bv. Heg gesnoeid, gazon gemaaid" />
-                        </div>
-
-                        <button className="btn btn-primary mt-8" onClick={handleSave}>
-                            {Icons.check}
-                            {isEdit ? 'Opslaan' : 'Uren toevoegen'}
-                        </button>
-                    </div>
-                </div>
-            );
-        }
-
-        // ===== WERKLOG ENTRY CARD =====
-        function WerklogEntryCard({ entry, clients, onEdit, onDelete }) {
-            const client = clients.find(c => c.id === entry.clientId);
-            const duur = new Date(entry.eindTijd) - new Date(entry.startTijd);
-            const uren = duur / 3600000;
-            const tarief = client?.uurtarief || 0;
-            const verdienst = uren * tarief;
-
-            return (
-                <div className="werklog-entry">
-                    <div className="werklog-entry-header">
-                        <div>
-                            <div className="werklog-entry-client">
-                                {client ? (client.bijnaam || client.naam) : 'Onbekende klant'}
-                            </div>
-                            <div className="werklog-entry-date">
-                                {formatTime(entry.startTijd)} – {formatTime(entry.eindTijd)}
-                            </div>
-                        </div>
-                        <div className="werklog-earnings">€{verdienst.toFixed(2)}</div>
-                    </div>
-
-                    {entry.notitie && (
-                        <div className="werklog-entry-note">{entry.notitie}</div>
-                    )}
-
-                    <div className="werklog-entry-details">
-                        <div className="werklog-detail">
-                            {Icons.clock}
-                            <strong>{formatDurationShort(duur)}</strong>
-                        </div>
-                        <div className="werklog-detail">
-                            {Icons.euro}
-                            <span>€{tarief}/u</span>
-                        </div>
-                        <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
-                            <button className="icon-btn" onClick={() => onEdit(entry)}
-                                style={{ width: 30, height: 30, color: 'var(--green-700)' }}>
-                                {Icons.edit}
-                            </button>
-                            <button className="icon-btn" onClick={() => onDelete(entry)}
-                                style={{ width: 30, height: 30, color: 'var(--danger)' }}>
-                                {Icons.trash}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        // ===== WERKLOG PAGE =====
-        function WerklogPage({ clients, entries, setEntries, activeSession, setActiveSession, showToast }) {
-            const [showModal, setShowModal] = useState(false);
-            const [editEntry, setEditEntry] = useState(null);
-            const [confirmDelete, setConfirmDelete] = useState(null);
-            const [elapsed, setElapsed] = useState(0);
-            const [showStartPicker, setShowStartPicker] = useState(false);
-            const [selectedClientId, setSelectedClientId] = useState('');
-            const [filter, setFilter] = useState('alle');
-
-            // Live timer
-            useEffect(() => {
-                if (!activeSession) { setElapsed(0); return; }
-                const tick = () => setElapsed(Date.now() - new Date(activeSession.startTijd).getTime());
-                tick();
-                const interval = setInterval(tick, 1000);
-                return () => clearInterval(interval);
-            }, [activeSession]);
-
-            // Start session
-            const handleStart = () => {
-                if (!selectedClientId) return;
-                setActiveSession({
-                    clientId: selectedClientId,
-                    startTijd: new Date().toISOString(),
-                });
-                setShowStartPicker(false);
-                setSelectedClientId('');
-                showToast('Klok gestart');
-            };
-
-            // Stop session
-            const handleStop = () => {
-                if (!activeSession) return;
-                const newEntry = {
-                    id: Date.now().toString(),
-                    clientId: activeSession.clientId,
-                    startTijd: activeSession.startTijd,
-                    eindTijd: new Date().toISOString(),
-                    notitie: '',
-                    aangemaakt: new Date().toISOString(),
-                };
-                setEntries(prev => [newEntry, ...prev]);
-                setActiveSession(null);
-                showToast('Uren opgeslagen');
-            };
-
-            // Save entry (modal)
-            const handleSaveEntry = (entry) => {
-                setEntries(prev => {
-                    const exists = prev.find(e => e.id === entry.id);
-                    if (exists) return prev.map(e => e.id === entry.id ? entry : e);
-                    return [entry, ...prev];
-                });
-                setShowModal(false);
-                setEditEntry(null);
-                showToast(editEntry ? 'Uren bijgewerkt' : 'Uren toegevoegd');
-            };
-
-            // Delete entry
-            const handleDelete = () => {
-                setEntries(prev => prev.filter(e => e.id !== confirmDelete.id));
-                setConfirmDelete(null);
-                showToast('Uren verwijderd');
-            };
-
-            const handleEdit = (entry) => {
-                setEditEntry(entry);
-                setShowModal(true);
-            };
-
-            const activeClient = activeSession
-                ? clients.find(c => c.id === activeSession.clientId)
-                : null;
-
-            // Filter entries
-            const filteredEntries = entries.filter(e => {
-                if (filter === 'alle') return true;
-                return e.clientId === filter;
-            });
-
-            // Sort by date descending
-            const sortedEntries = [...filteredEntries].sort(
-                (a, b) => new Date(b.startTijd) - new Date(a.startTijd)
-            );
-
-            // Group by date
-            const grouped = sortedEntries.reduce((acc, entry) => {
-                const key = getDateKey(entry.startTijd);
-                if (!acc[key]) acc[key] = [];
-                acc[key].push(entry);
-                return acc;
-            }, {});
-
-            // Unique clients in entries for filter
-            const entryClientIds = [...new Set(entries.map(e => e.clientId))];
-
-            return (
-                <>
-                    {/* Active timer or start button */}
-                    {activeSession ? (
-                        <div className="timer-card">
-                            <div className="timer-client">
-                                <span className="pulse-dot" />
-                                Bezig bij
-                                <strong>{activeClient ? (activeClient.bijnaam || activeClient.naam) : 'Klant'}</strong>
-                            </div>
-                            <div className="timer-display">{formatDuration(elapsed)}</div>
-                            <div style={{ textAlign: 'center', fontSize: 13, opacity: 0.7, marginBottom: 4 }}>
-                                Gestart om {formatTime(activeSession.startTijd)}
-                            </div>
-                            <div className="timer-actions">
-                                <button className="btn btn-stop" onClick={handleStop}>
-                                    {Icons.stop}
-                                    Stoppen & opslaan
-                                </button>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="timer-card idle">
-                            {!showStartPicker ? (
-                                <>
-                                    <div style={{ color: 'var(--green-300)', width: 48, height: 48, margin: '0 auto 12px' }}>
-                                        {Icons.clock}
-                                    </div>
-                                    <div style={{ fontWeight: 600, fontSize: 16, marginBottom: 4 }}>Klok staat stil</div>
-                                    <div style={{ color: 'var(--text-tertiary)', fontSize: 14, marginBottom: 16 }}>
-                                        Klok in bij een klant of voer handmatig uren in
-                                    </div>
-                                    {clients.length > 0 ? (
-                                        <div style={{ display: 'flex', gap: 10 }}>
-                                            <button className="start-work-btn" style={{ flex: 1 }}
-                                                onClick={() => setShowStartPicker(true)}>
-                                                {Icons.play}
-                                                Inklokken
-                                            </button>
-                                            <button className="btn btn-secondary"
-                                                style={{ flex: 0, width: 48, padding: 0 }}
-                                                onClick={() => { setEditEntry(null); setShowModal(true); }}>
-                                                {Icons.plus}
-                                            </button>
-                                        </div>
-                                    ) : (
-                                        <div style={{ color: 'var(--text-tertiary)', fontSize: 13 }}>
-                                            Voeg eerst een klant toe via het Klanten tabblad
-                                        </div>
-                                    )}
-                                </>
-                            ) : (
-                                <>
-                                    <div style={{ textAlign: 'left' }}>
-                                        <div style={{ fontWeight: 600, fontSize: 16, marginBottom: 12 }}>Bij welke klant?</div>
-                                        <select className="client-picker" value={selectedClientId}
-                                            onChange={e => setSelectedClientId(e.target.value)} autoFocus>
-                                            <option value="">Selecteer een klant...</option>
-                                            {clients.map(c => (
-                                                <option key={c.id} value={c.id}>{c.bijnaam || c.naam}</option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                    <div style={{ display: 'flex', gap: 10, marginTop: 16 }}>
-                                        <button className="btn btn-secondary" onClick={() => { setShowStartPicker(false); setSelectedClientId(''); }}>
-                                            Annuleer
-                                        </button>
-                                        <button className="btn btn-primary" onClick={handleStart}
-                                            disabled={!selectedClientId}
-                                            style={!selectedClientId ? { opacity: 0.5 } : {}}>
-                                            {Icons.play}
-                                            Start klok
-                                        </button>
-                                    </div>
-                                </>
-                            )}
-                        </div>
-                    )}
-
-                    {/* Filters */}
-                    {entries.length > 0 && (
-                        <>
-                            <div className="filter-tabs">
-                                <button className={`filter-tab ${filter === 'alle' ? 'active' : ''}`}
-                                    onClick={() => setFilter('alle')}>
-                                    Alle ({entries.length})
-                                </button>
-                                {entryClientIds.map(cid => {
-                                    const c = clients.find(cl => cl.id === cid);
-                                    const count = entries.filter(e => e.clientId === cid).length;
-                                    return (
-                                        <button key={cid} className={`filter-tab ${filter === cid ? 'active' : ''}`}
-                                            onClick={() => setFilter(cid)}>
-                                            {c ? (c.bijnaam || c.naam) : 'Onbekend'} ({count})
-                                        </button>
-                                    );
-                                })}
-                            </div>
-
-                            {Object.keys(grouped).map(dateKey => (
-                                <div key={dateKey}>
-                                    <div className="date-group-header">{formatDate(grouped[dateKey][0].startTijd)}</div>
-                                    {grouped[dateKey].map(entry => (
-                                        <WerklogEntryCard
-                                            key={entry.id}
-                                            entry={entry}
-                                            clients={clients}
-                                            onEdit={handleEdit}
-                                            onDelete={setConfirmDelete}
-                                        />
-                                    ))}
-                                </div>
-                            ))}
-                        </>
-                    )}
-
-                    {entries.length === 0 && !activeSession && (
-                        <div style={{ textAlign: 'center', padding: '20px 0', color: 'var(--text-tertiary)', fontSize: 14 }}>
-                            Nog geen werkuren geregistreerd
-                        </div>
-                    )}
-
-                    {/* FAB for manual entry when timer is active */}
-                    {activeSession && (
-                        <button className="fab" onClick={() => { setEditEntry(null); setShowModal(true); }}>
-                            {Icons.plus}
-                        </button>
-                    )}
-
-                    {/* Modal */}
-                    {showModal && (
-                        <WerklogModal
-                            entry={editEntry}
-                            clients={clients}
-                            onSave={handleSaveEntry}
-                            onClose={() => { setShowModal(false); setEditEntry(null); }}
-                        />
-                    )}
-
-                    {/* Confirm delete */}
-                    {confirmDelete && (
-                        <ConfirmDialog
-                            title="Uren verwijderen?"
-                            message="Weet je zeker dat je deze werkuren wilt verwijderen? Dit kan niet ongedaan worden."
-                            onConfirm={handleDelete}
-                            onCancel={() => setConfirmDelete(null)}
-                        />
-                    )}
-                </>
-            );
-        }
-
-        function FacturenPage() {
-            return (
-                <div className="empty-state">
-                    <div style={{ color: 'var(--green-300)', width: 80, height: 80 }}>{Icons.receipt}</div>
-                    <h3>Facturen</h3>
-                    <p>Komt in Stap 4 — hier maak je straks facturen aan</p>
-                </div>
-            );
-        }
-
-        function OverzichtPage() {
-            return (
-                <div className="empty-state">
-                    <div style={{ color: 'var(--green-300)', width: 80, height: 80 }}>{Icons.chart}</div>
-                    <h3>Overzicht</h3>
-                    <p>Komt in Stap 5 — hier zie je straks rapportages en statistieken</p>
-                </div>
-            );
-        }
-
-        // ===== MAIN APP =====
-        function App() {
-            const [tab, setTab] = useState('werklog');
-            const [clients, setClients] = useLocalStorage('tuinlog_clients', []);
-            const [werklogEntries, setWerklogEntries] = useLocalStorage('tuinlog_werklog', []);
-            const [activeSession, setActiveSession] = useLocalStorage('tuinlog_active_session', null);
-            const [toast, setToast] = useState(null);
-
-            const showToast = (msg) => setToast(msg);
-
-            // Bereken totale uren deze week
-            const weekStart = new Date();
-            weekStart.setDate(weekStart.getDate() - weekStart.getDay() + 1);
-            weekStart.setHours(0,0,0,0);
-            const weekEntries = werklogEntries.filter(e => new Date(e.startTijd) >= weekStart);
-            const weekUren = weekEntries.reduce((sum, e) => {
-                return sum + (new Date(e.eindTijd) - new Date(e.startTijd)) / 3600000;
-            }, 0);
-
-            const tabs = [
-                { id: 'werklog', label: 'Werklog', icon: Icons.clock },
-                { id: 'klanten', label: 'Klanten', icon: Icons.users },
-                { id: 'facturen', label: 'Facturen', icon: Icons.receipt },
-                { id: 'overzicht', label: 'Overzicht', icon: Icons.chart },
-            ];
-
-            const werklogSub = activeSession
-                ? 'Timer loopt...'
-                : weekUren > 0
-                    ? `${weekUren.toFixed(1)} uur deze week`
-                    : 'Registreer je werktijd';
-
-            const headers = {
-                werklog: { title: 'Werklog', sub: werklogSub },
-                klanten: { title: 'Klanten', sub: `${clients.length} klant${clients.length !== 1 ? 'en' : ''}` },
-                facturen: { title: 'Facturen', sub: 'Factureer je klanten' },
-                overzicht: { title: 'Overzicht', sub: 'Statistieken & rapportages' },
-            };
-
-            return (
-                <div className="app">
-                    <div className="header">
-                        <h1>
-                            <span style={{ opacity: 0.5, marginRight: 2 }}>🌿</span>{' '}
-                            {headers[tab].title}
-                        </h1>
-                        <p>{headers[tab].sub}</p>
-                    </div>
-
-                    <div className="content">
-                        {tab === 'klanten' && <KlantenPage clients={clients} setClients={setClients} showToast={showToast} />}
-                        {tab === 'werklog' && (
-                            <WerklogPage
-                                clients={clients}
-                                entries={werklogEntries}
-                                setEntries={setWerklogEntries}
-                                activeSession={activeSession}
-                                setActiveSession={setActiveSession}
-                                showToast={showToast}
-                            />
-                        )}
-                        {tab === 'facturen' && <FacturenPage />}
-                        {tab === 'overzicht' && <OverzichtPage />}
-                    </div>
-
-                    <nav className="bottom-nav">
-                        {tabs.map(t => (
-                            <button
-                                key={t.id}
-                                className={`nav-item ${tab === t.id ? 'active' : ''}`}
-                                onClick={() => setTab(t.id)}
-                            >
-                                {t.id === 'werklog' && activeSession && <span className="pulse-dot" style={{ position: 'absolute', top: 4, right: '50%', marginRight: -18, width: 8, height: 8 }} />}
-                                {t.icon}
-                                {t.label}
-                            </button>
-                        ))}
-                    </nav>
-
-                    {toast && <Toast message={toast} onDone={() => setToast(null)} />}
-                </div>
-            );
-        }
-
-        ReactDOM.createRoot(document.getElementById('app')).render(<App />);
-    </script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('SW registered'))
-                    .catch(err => console.log('SW registration failed:', err));
-            });
-        }
-    </script>
+<div id="app"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<script type="text/babel">
+const{useState,useEffect,useCallback,useMemo}=React;
+
+// ===== ICONS =====
+const I={
+    clock:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
+    users:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+    receipt:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v.5"/><path d="M12 6v.5"/></svg>,
+    chart:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>,
+    plus:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
+    search:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>,
+    mapPin:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>,
+    nav:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>,
+    edit:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>,
+    trash:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>,
+    x:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>,
+    check:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
+    loader:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/></path></svg>,
+    leaf:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>,
+    phone:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>,
+    play:<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="6 3 20 12 6 21 6 3"/></svg>,
+    stop:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>,
+    pause:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="9" y1="6" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="18"/></svg>,
+    coffee:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>,
+    list:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>,
+};
+
+// ===== HELPERS =====
+function useLS(key,init){
+    const[v,setV]=useState(()=>{try{const i=localStorage.getItem(key);return i?JSON.parse(i):init}catch{return init}});
+    useEffect(()=>{try{localStorage.setItem(key,JSON.stringify(v))}catch(e){console.error(e)}},[key,v]);
+    return[v,setV];
+}
+const fmtTime=d=>{if(!d)return'--:--';return new Date(d).toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'})};
+const fmtDate=d=>{const x=new Date(d),days=['zo','ma','di','wo','do','vr','za'],mos=['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];return`${days[x.getDay()]} ${x.getDate()} ${mos[x.getMonth()]}`};
+const fmtDur=ms=>{if(!ms||ms<0)return'0:00';const m=Math.floor(ms/60000),h=Math.floor(m/60);return`${h}:${(m%60).toString().padStart(2,'0')}`};
+const fmtDurL=ms=>{if(!ms||ms<0)return'0 min';const m=Math.floor(ms/60000),h=Math.floor(m/60);return h===0?`${m} min`:`${h}u ${m%60}min`};
+const calcDist=(a,b,c,d)=>{const R=6371e3,x=Math.sin((c-a)*Math.PI/360)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin((d-b)*Math.PI/360)**2;return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x))};
+const fmtDistL=m=>m<100?`${Math.round(m)} m`:m<1000?`${Math.round(m/10)*10} m`:`${(m/1000).toFixed(1)} km`;
+const breakTotal=br=>br.reduce((s,b)=>b.start&&b.end?s+(new Date(b.end)-new Date(b.start)):s,0);
+const netWork=l=>{if(!l.startTijd||!l.eindTijd)return 0;return Math.max(0,new Date(l.eindTijd)-new Date(l.startTijd)-breakTotal(l.pauzes||[]))};
+const isToday=d=>new Date(d).toDateString()===new Date().toDateString();
+
+function Toast({message,onDone}){useEffect(()=>{const t=setTimeout(onDone,3000);return()=>clearTimeout(t)},[onDone]);return<div className="toast">{message}</div>}
+
+function ConfirmDialog({title,message,onConfirm,onCancel,confirmLabel="Verwijderen"}){
+    return(<div className="confirm-overlay" onClick={onCancel}><div className="confirm-dialog" onClick={e=>e.stopPropagation()}>
+        <h3>{title}</h3><p>{message}</p>
+        <div className="confirm-actions"><button className="btn btn-secondary" onClick={onCancel}>Annuleer</button><button className="btn btn-danger" onClick={onConfirm}>{confirmLabel}</button></div>
+    </div></div>);
+}
+
+// ===== CLIENT MODAL =====
+function ClientModal({client,onSave,onClose}){
+    const[naam,sN]=useState(client?.naam||'');const[bijnaam,sB]=useState(client?.bijnaam||'');
+    const[adres,sA]=useState(client?.adres||'');const[telefoon,sT]=useState(client?.telefoon||'');
+    const[uurtarief,sU]=useState(client?.uurtarief||'35');
+    const[lat,sLat]=useState(client?.lat||null);const[lng,sLng]=useState(client?.lng||null);
+    const[gps,sGps]=useState('idle');
+    const getLoc=()=>{if(!navigator.geolocation){sGps('error');return}sGps('loading');
+        navigator.geolocation.getCurrentPosition(async p=>{const{latitude:la,longitude:lo}=p.coords;sLat(la);sLng(lo);
+            try{const r=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${la}&lon=${lo}&format=json&addressdetails=1`);const d=await r.json();if(d.display_name){const a=d.address;sA([a.road&&a.house_number?`${a.road} ${a.house_number}`:a.road,a.postcode,a.city||a.town||a.village].filter(Boolean).join(', '))}}catch{}sGps('success')},()=>sGps('error'),{enableHighAccuracy:true,timeout:10000})};
+    const save=()=>{if(!naam.trim()&&!bijnaam.trim())return;onSave({id:client?.id||Date.now().toString(),naam:naam.trim(),bijnaam:bijnaam.trim(),adres:adres.trim(),telefoon:telefoon.trim(),uurtarief:parseFloat(uurtarief)||35,lat,lng,aangemaakt:client?.aangemaakt||new Date().toISOString()})};
+    const isEdit=!!client?.id;
+    return(<div className="modal-overlay" onClick={onClose}><div className="modal" onClick={e=>e.stopPropagation()}>
+        <div className="modal-handle"/><div className="flex-between mb-16"><h2 className="modal-title">{isEdit?'Klant bewerken':'Nieuwe klant'}</h2><button className="icon-btn" onClick={onClose} style={{width:32,height:32}}>{I.x}</button></div>
+        <div className="form-group"><label className="form-label">Naam</label><input className="form-input" value={naam} onChange={e=>sN(e.target.value)} placeholder="Volledige naam" autoFocus/></div>
+        <div className="form-group"><label className="form-label">Bijnaam</label><input className="form-input" value={bijnaam} onChange={e=>sB(e.target.value)} placeholder="bv. Mevr. Janssen"/></div>
+        <div className="form-group"><label className="form-label">Adres</label><input className="form-input" value={adres} onChange={e=>sA(e.target.value)} placeholder="Straat, postcode, plaats"/>
+            <div className="mt-8"><button className={`gps-btn ${gps}`} onClick={getLoc} disabled={gps==='loading'}>{gps==='loading'?I.loader:gps==='success'?I.check:I.nav}{gps==='loading'?'Locatie ophalen...':gps==='success'?'Locatie gevonden!':gps==='error'?'Opnieuw proberen':'Gebruik huidige locatie'}</button></div></div>
+        <div className="form-group"><label className="form-label">Telefoon</label><input className="form-input" value={telefoon} onChange={e=>sT(e.target.value)} placeholder="06-12345678" type="tel"/></div>
+        <div className="form-group"><label className="form-label">Uurtarief</label><div className="rate-input-group"><span className="currency">€</span><input className="form-input" value={uurtarief} onChange={e=>sU(e.target.value)} placeholder="35" type="number" inputMode="decimal" step="0.50"/></div></div>
+        <button className="btn btn-primary mt-8" onClick={save}>{I.check}{isEdit?'Opslaan':'Klant toevoegen'}</button>
+    </div></div>);
+}
+
+// ===== CLIENT CARD =====
+function ClientCard({client:c,onEdit,onDelete}){
+    return(<div className="card"><div className="card-header"><div><div className="card-title">{c.bijnaam||c.naam}</div>{c.bijnaam&&c.naam&&<div className="card-subtitle">{c.naam}</div>}</div><span className="card-badge">€{c.uurtarief}/u</span></div>
+        {c.adres&&<div style={{display:'flex',alignItems:'flex-start',gap:6,marginTop:6}}><span style={{color:'var(--text-tertiary)',flexShrink:0,width:16,marginTop:1}}>{I.mapPin}</span><span style={{fontSize:13,color:'var(--text-secondary)',lineHeight:1.4}}>{c.adres}</span></div>}
+        {c.telefoon&&<div style={{display:'flex',alignItems:'center',gap:6,marginTop:4}}><span style={{color:'var(--text-tertiary)',flexShrink:0,width:16}}>{I.phone}</span><a href={`tel:${c.telefoon}`} style={{fontSize:13,color:'var(--green-700)',textDecoration:'none'}}>{c.telefoon}</a></div>}
+        <div style={{display:'flex',gap:8,marginTop:12,justifyContent:'flex-end'}}><button className="icon-btn" onClick={()=>onEdit(c)} style={{color:'var(--green-700)'}}>{I.edit}</button><button className="icon-btn" onClick={()=>onDelete(c)} style={{color:'var(--danger)'}}>{I.trash}</button></div>
+    </div>);
+}
+
+// ===== KLANTEN PAGE =====
+function KlantenPage({clients,setClients,showToast}){
+    const[showModal,sSM]=useState(false);const[editC,sEC]=useState(null);const[confirmDel,sCD]=useState(null);const[search,sS]=useState('');
+    const filtered=clients.filter(c=>{const q=search.toLowerCase();return c.naam.toLowerCase().includes(q)||c.bijnaam.toLowerCase().includes(q)||c.adres.toLowerCase().includes(q)});
+    const handleSave=c=>{setClients(p=>{const ex=p.find(x=>x.id===c.id);if(ex)return p.map(x=>x.id===c.id?c:x);return[...p,c]});sSM(false);sEC(null);showToast(editC?'Klant bijgewerkt':'Klant toegevoegd')};
+    const handleDel=()=>{setClients(p=>p.filter(c=>c.id!==confirmDel.id));sCD(null);showToast('Klant verwijderd')};
+    return(<>{clients.length>0&&<div className="search-bar">{I.search}<input placeholder="Zoek klant..." value={search} onChange={e=>sS(e.target.value)}/></div>}
+        <div className="section-title">{filtered.length} klant{filtered.length!==1?'en':''}</div>
+        {clients.length===0?<div className="empty-state"><div style={{color:'var(--green-300)'}}>{I.leaf}</div><h3>Nog geen klanten</h3><p>Voeg je eerste klant toe met de + knop</p></div>
+        :filtered.length===0?<div className="empty-state">{I.search}<h3>Geen resultaten</h3></div>
+        :filtered.map(c=><ClientCard key={c.id} client={c} onEdit={c=>{sEC(c);sSM(true)}} onDelete={sCD}/>)}
+        <button className="fab" onClick={()=>{sEC(null);sSM(true)}}>{I.plus}</button>
+        {showModal&&<ClientModal client={editC} onSave={handleSave} onClose={()=>{sSM(false);sEC(null)}}/>}
+        {confirmDel&&<ConfirmDialog title="Klant verwijderen?" message={`Weet je zeker dat je "${confirmDel.bijnaam||confirmDel.naam}" wilt verwijderen?`} onConfirm={handleDel} onCancel={()=>sCD(null)}/>}
+    </>);
+}
+
+// ============================================================
+// ===== WERKLOG PAGE =========================================
+// ============================================================
+function WerklogPage({clients,logs,setLogs,activeLog,setActiveLog,showToast}){
+    const[subTab,sST]=useState(activeLog?'actief':'vandaag');
+    const[showCS,sSCS]=useState(false);
+    const[showBM,sSBM]=useState(false);
+    const[showEL,sSEL]=useState(null);
+    const[gpsL,sGL]=useState(false);
+    const[confirmDel,sCD]=useState(null);
+    const[now,sNow]=useState(Date.now());
+
+    useEffect(()=>{if(!activeLog)return;const iv=setInterval(()=>sNow(Date.now()),1000);return()=>clearInterval(iv)},[activeLog]);
+    useEffect(()=>{if(activeLog)sST('actief')},[!!activeLog]);
+
+    const todayLogs=useMemo(()=>logs.filter(l=>isToday(l.startTijd)).sort((a,b)=>new Date(b.startTijd)-new Date(a.startTijd)),[logs]);
+    const allGrouped=useMemo(()=>{const s=[...logs].sort((a,b)=>new Date(b.startTijd)-new Date(a.startTijd));const g={};s.forEach(l=>{const k=fmtDate(l.startTijd);if(!g[k])g[k]=[];g[k].push(l)});return g},[logs]);
+
+    const findNearest=()=>new Promise(res=>{if(!navigator.geolocation){res(null);return}sGL(true);
+        navigator.geolocation.getCurrentPosition(p=>{const{latitude:la,longitude:lo}=p.coords;let near=null,min=Infinity;
+            clients.forEach(c=>{if(c.lat&&c.lng){const d=calcDist(la,lo,c.lat,c.lng);if(d<min){min=d;near={...c,distance:d}}}});
+            sGL(false);res(near&&near.distance<200?near:null)},()=>{sGL(false);res(null)},{enableHighAccuracy:true,timeout:10000})});
+
+    const clockIn=async(sel)=>{let c=sel;if(!c){const g=await findNearest();if(g){c=g;showToast(`📍 ${c.bijnaam||c.naam} herkend`)}else{sSCS(true);return}}
+        setActiveLog({id:Date.now().toString(),klantId:c.id,klantNaam:c.bijnaam||c.naam,uurtarief:c.uurtarief,startTijd:new Date().toISOString(),eindTijd:null,pauzes:[],extraKosten:[],notitie:''});
+        showToast('⏱ Ingeklokt!')};
+
+    const clockOut=()=>{if(!activeLog)return;let u={...activeLog,pauzes:[...activeLog.pauzes]};
+        const ob=u.pauzes.findIndex(b=>b.start&&!b.end);if(ob>=0)u.pauzes[ob]={...u.pauzes[ob],end:new Date().toISOString()};
+        u.eindTijd=new Date().toISOString();setLogs(p=>[...p,u]);setActiveLog(null);showToast('✅ Uitgeklokt!');sST('vandaag')};
+
+    const isOnBreak=activeLog?.pauzes?.some(b=>b.start&&!b.end);
+
+    const toggleBreak=()=>{if(!activeLog)return;const u={...activeLog,pauzes:[...activeLog.pauzes]};
+        if(isOnBreak){const i=u.pauzes.findIndex(b=>b.start&&!b.end);if(i>=0)u.pauzes[i]={...u.pauzes[i],end:new Date().toISOString()};showToast('▶ Pauze gestopt')}
+        else{u.pauzes.push({start:new Date().toISOString(),end:null});showToast('☕ Pauze gestart')}
+        setActiveLog(u)};
+
+    const getRunning=()=>{if(!activeLog)return 0;const s=new Date(activeLog.startTijd).getTime(),el=now-s,bt=breakTotal(activeLog.pauzes),
+        cb=isOnBreak?now-new Date(activeLog.pauzes.find(b=>b.start&&!b.end).start).getTime():0;return Math.max(0,el-bt-cb)};
+
+    const handleDelLog=()=>{setLogs(p=>p.filter(l=>l.id!==confirmDel.id));sCD(null);showToast('Log verwijderd')};
+
+    // Client Select Modal
+    function CSModal({onSelect,onClose}){
+        const[pos,sP]=useState(null);const[ld,sLd]=useState(true);
+        useEffect(()=>{if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>{sP({lat:p.coords.latitude,lng:p.coords.longitude});sLd(false)},()=>sLd(false),{enableHighAccuracy:true,timeout:10000});else sLd(false)},[]);
+        const sorted=useMemo(()=>{if(!pos)return clients;return[...clients].sort((a,b)=>{const da=a.lat&&a.lng?calcDist(pos.lat,pos.lng,a.lat,a.lng):999999;const db=b.lat&&b.lng?calcDist(pos.lat,pos.lng,b.lat,b.lng):999999;return da-db}).map(c=>({...c,distance:c.lat&&c.lng?calcDist(pos.lat,pos.lng,c.lat,c.lng):null}))},[pos,clients]);
+        return(<div className="modal-overlay" onClick={onClose}><div className="modal" onClick={e=>e.stopPropagation()}>
+            <div className="modal-handle"/><h2 className="modal-title">Kies klant</h2>
+            {ld&&<div className="text-center" style={{padding:20,color:'var(--text-tertiary)'}}>Locatie ophalen...</div>}
+            {clients.length===0?<div className="text-center" style={{padding:20,color:'var(--text-tertiary)'}}><p>Nog geen klanten. Voeg eerst klanten toe.</p></div>
+            :sorted.map(c=><div key={c.id} className="client-select-item" onClick={()=>{onSelect(c);onClose()}}><div><div className="csi-name">{c.bijnaam||c.naam}</div>{c.adres&&<div className="csi-addr">{c.adres}</div>}</div>{c.distance!=null&&<div className="csi-dist">{fmtDistL(c.distance)}</div>}</div>)}
+        </div></div>);
+    }
+
+    // Break Edit Modal
+    function BEModal({log,onSave,onClose}){
+        const[pz,sPz]=useState((log.pauzes||[]).map(p=>({s:p.start?new Date(p.start).toTimeString().slice(0,5):'',e:p.end?new Date(p.end).toTimeString().slice(0,5):''})));
+        const bd=new Date(log.startTijd).toISOString().slice(0,10);
+        const save=()=>{const conv=pz.filter(p=>p.s&&p.e).map(p=>({start:new Date(`${bd}T${p.s}:00`).toISOString(),end:new Date(`${bd}T${p.e}:00`).toISOString()}));onSave(conv);onClose()};
+        return(<div className="modal-overlay" onClick={onClose}><div className="modal" onClick={e=>e.stopPropagation()}>
+            <div className="modal-handle"/><h2 className="modal-title">Pauzes bewerken</h2>
+            {pz.map((p,i)=><div key={i} style={{display:'flex',gap:8,alignItems:'center',marginBottom:10}}>
+                <input type="time" value={p.s} onChange={e=>{const n=[...pz];n[i]={...n[i],s:e.target.value};sPz(n)}} style={{flex:1,padding:'10px 12px',border:'1.5px solid var(--sand-300)',borderRadius:'var(--radius-md)',fontFamily:'DM Sans',fontSize:16}}/>
+                <span style={{color:'var(--text-tertiary)'}}>—</span>
+                <input type="time" value={p.e} onChange={e=>{const n=[...pz];n[i]={...n[i],e:e.target.value};sPz(n)}} style={{flex:1,padding:'10px 12px',border:'1.5px solid var(--sand-300)',borderRadius:'var(--radius-md)',fontFamily:'DM Sans',fontSize:16}}/>
+                <button className="icon-btn" onClick={()=>sPz(pz.filter((_,x)=>x!==i))} style={{color:'var(--danger)',flexShrink:0}}>{I.trash}</button>
+            </div>)}
+            <button className="btn btn-secondary mb-16" onClick={()=>sPz([...pz,{s:'',e:''}])}>{I.plus} Pauze toevoegen</button>
+            <button className="btn btn-primary" onClick={save}>{I.check} Opslaan</button>
+        </div></div>);
+    }
+
+    // Edit Log Modal
+    function ELModal({log,onSave,onClose}){
+        const bd=new Date(log.startTijd).toISOString().slice(0,10);
+        const[st,sSt]=useState(new Date(log.startTijd).toTimeString().slice(0,5));
+        const[et,sEt]=useState(log.eindTijd?new Date(log.eindTijd).toTimeString().slice(0,5):'');
+        const[kId,sKId]=useState(log.klantId);const[notitie,sNo]=useState(log.notitie||'');
+        const save=()=>{const sc=clients.find(c=>c.id===kId);
+            onSave({...log,klantId:kId,klantNaam:sc?(sc.bijnaam||sc.naam):log.klantNaam,uurtarief:sc?sc.uurtarief:log.uurtarief,
+                startTijd:new Date(`${bd}T${st}:00`).toISOString(),eindTijd:et?new Date(`${bd}T${et}:00`).toISOString():null,notitie});onClose()};
+        return(<div className="modal-overlay" onClick={onClose}><div className="modal" onClick={e=>e.stopPropagation()}>
+            <div className="modal-handle"/><h2 className="modal-title">Log bewerken</h2>
+            <div className="form-group"><label className="form-label">Klant</label><select className="form-input" value={kId} onChange={e=>sKId(e.target.value)}>{clients.map(c=><option key={c.id} value={c.id}>{c.bijnaam||c.naam}</option>)}</select></div>
+            <div style={{display:'flex',gap:12}}><div className="form-group" style={{flex:1}}><label className="form-label">Start</label><input type="time" className="form-input" value={st} onChange={e=>sSt(e.target.value)}/></div>
+            <div className="form-group" style={{flex:1}}><label className="form-label">Eind</label><input type="time" className="form-input" value={et} onChange={e=>sEt(e.target.value)}/></div></div>
+            <div className="form-group"><label className="form-label">Notitie</label><input className="form-input" value={notitie} onChange={e=>sNo(e.target.value)} placeholder="Optioneel"/></div>
+            <button className="btn btn-primary" onClick={save}>{I.check} Opslaan</button>
+        </div></div>);
+    }
+
+    // Log Card
+    function LogCard({log:l}){
+        const nw=netWork(l),total=(nw/3600000)*(l.uurtarief||0),bt=breakTotal(l.pauzes||[]);
+        return(<div className="log-card"><div className="log-top"><div><div className="log-client">{l.klantNaam}</div><div className="log-date">{fmtDate(l.startTijd)}</div></div><div className="log-total">€{total.toFixed(2)}</div></div>
+            <div className="log-details">
+                <div className="log-detail"><span style={{color:'var(--green-600)'}}>{I.clock}</span>{fmtTime(l.startTijd)} — {fmtTime(l.eindTijd)}</div>
+                <div className="log-detail"><span style={{color:'var(--text-tertiary)'}}>{I.play}</span>{fmtDurL(nw)}</div>
+                {bt>0&&<div className="log-detail"><span style={{color:'var(--warning)'}}>{I.coffee}</span>{fmtDurL(bt)}</div>}
+            </div>
+            {l.notitie&&<div style={{marginTop:6,fontSize:13,color:'var(--text-secondary)',fontStyle:'italic'}}>{l.notitie}</div>}
+            <div style={{display:'flex',gap:8,marginTop:10,justifyContent:'flex-end'}}>
+                <button className="icon-btn" onClick={()=>sSEL(l)} style={{color:'var(--green-700)'}}>{I.edit}</button>
+                <button className="icon-btn" onClick={()=>sCD(l)} style={{color:'var(--danger)'}}>{I.trash}</button>
+            </div>
+        </div>);
+    }
+
+    // Active session
+    const renderActive=()=>{
+        if(!activeLog)return(<div style={{textAlign:'center',padding:'20px 0'}}>
+            <button className="big-clock-btn start" onClick={()=>clockIn(null)} disabled={gpsL}>{gpsL?I.loader:I.play}<span>Inklokken</span></button>
+            <p style={{fontSize:13,color:'var(--text-tertiary)',marginTop:12}}>Tik om te starten — je klant wordt automatisch herkend via GPS</p>
+            {clients.length===0&&<p style={{fontSize:13,color:'var(--warning)',marginTop:8}}>⚠️ Voeg eerst klanten toe in het Klanten tabblad</p>}
+        </div>);
+        const rt=getRunning(),bt=breakTotal(activeLog.pauzes);
+        return(<><div className="clock-display"><div className="text-center">
+            <div className={`status-pill ${isOnBreak?'paused':'active'}`}><div className="status-dot"/>{isOnBreak?'Pauze':'Aan het werk'}</div></div>
+            <div className="clock-time">{fmtDur(rt)}</div><div className="clock-label">netto werktijd</div>
+            <div className="clock-client">{activeLog.klantNaam}</div><div className="clock-address">Begonnen om {fmtTime(activeLog.startTijd)}</div></div>
+            <div className="action-grid">
+                <button className={`action-btn ${isOnBreak?'highlight':'warn'}`} onClick={toggleBreak}>{isOnBreak?I.play:I.coffee}{isOnBreak?'Hervat werk':'Pauze'}</button>
+                <button className="action-btn stop" onClick={clockOut}>{I.stop}Uitklokken</button>
+            </div>
+            {activeLog.pauzes.length>0&&<><div className="flex-between mt-16 mb-8"><div className="section-title" style={{margin:0}}>Pauzes</div><button className="icon-btn" onClick={()=>sSBM(true)} style={{color:'var(--green-700)',width:28,height:28}}>{I.edit}</button></div>
+                {activeLog.pauzes.map((b,i)=><div key={i} className="break-item"><div className="break-times">{I.coffee}{fmtTime(b.start)} — {b.end?fmtTime(b.end):'nu...'}</div>{b.end&&<div className="break-dur">{fmtDurL(new Date(b.end)-new Date(b.start))}</div>}</div>)}
+                {bt>0&&<div style={{textAlign:'right',fontSize:12,color:'var(--text-tertiary)',marginTop:4}}>Totaal pauze: {fmtDurL(bt)}</div>}</>}
+        </>);
+    };
+
+    // Today
+    const renderToday=()=>{
+        if(todayLogs.length===0)return(<div className="empty-state"><div style={{color:'var(--green-300)'}}>{I.leaf}</div><h3>Nog geen logs vandaag</h3><p>Klok in om te starten</p></div>);
+        const totE=todayLogs.reduce((s,l)=>s+(netWork(l)/3600000)*(l.uurtarief||0),0);
+        const totH=todayLogs.reduce((s,l)=>s+netWork(l),0);
+        return(<><div style={{display:'flex',gap:10,marginBottom:16}}>
+            <div className="card" style={{flex:1,textAlign:'center',marginBottom:0}}><div style={{fontSize:24,fontFamily:'DM Serif Display',color:'var(--green-700)'}}>{fmtDur(totH)}</div><div style={{fontSize:11,color:'var(--text-tertiary)',textTransform:'uppercase',letterSpacing:0.5}}>Uren</div></div>
+            <div className="card" style={{flex:1,textAlign:'center',marginBottom:0}}><div style={{fontSize:24,fontFamily:'DM Serif Display',color:'var(--green-700)'}}>€{totE.toFixed(0)}</div><div style={{fontSize:11,color:'var(--text-tertiary)',textTransform:'uppercase',letterSpacing:0.5}}>Omzet</div></div>
+            <div className="card" style={{flex:1,textAlign:'center',marginBottom:0}}><div style={{fontSize:24,fontFamily:'DM Serif Display',color:'var(--green-700)'}}>{todayLogs.length}</div><div style={{fontSize:11,color:'var(--text-tertiary)',textTransform:'uppercase',letterSpacing:0.5}}>Klanten</div></div>
+        </div>{todayLogs.map(l=><LogCard key={l.id} log={l}/>)}</>);
+    };
+
+    // History
+    const renderHistory=()=>{const keys=Object.keys(allGrouped);
+        if(keys.length===0)return(<div className="empty-state"><div style={{color:'var(--green-300)'}}>{I.list}</div><h3>Geen geschiedenis</h3><p>Voltooide logs verschijnen hier</p></div>);
+        return keys.map(d=><div key={d}><div className="section-title">{d}</div>{allGrouped[d].map(l=><LogCard key={l.id} log={l}/>)}</div>);
+    };
+
+    return(<>
+        <div className="tab-bar">
+            {activeLog&&<button className={`tab-btn ${subTab==='actief'?'active':''}`} onClick={()=>sST('actief')}>⏱ Actief</button>}
+            <button className={`tab-btn ${subTab==='vandaag'?'active':''}`} onClick={()=>sST('vandaag')}>Vandaag</button>
+            <button className={`tab-btn ${subTab==='alles'?'active':''}`} onClick={()=>sST('alles')}>Geschiedenis</button>
+        </div>
+        {subTab==='actief'&&renderActive()}
+        {subTab==='vandaag'&&<>{!activeLog&&renderActive()}{renderToday()}</>}
+        {subTab==='alles'&&renderHistory()}
+        {showCS&&<CSModal onSelect={c=>clockIn(c)} onClose={()=>sSCS(false)}/>}
+        {showBM&&activeLog&&<BEModal log={activeLog} onSave={pz=>setActiveLog({...activeLog,pauzes:pz})} onClose={()=>sSBM(false)}/>}
+        {showEL&&<ELModal log={showEL} onSave={u=>{setLogs(p=>p.map(l=>l.id===u.id?u:l));showToast('Log bijgewerkt')}} onClose={()=>sSEL(null)}/>}
+        {confirmDel&&<ConfirmDialog title="Log verwijderen?" message="Weet je zeker dat je deze log wilt verwijderen?" onConfirm={handleDelLog} onCancel={()=>sCD(null)}/>}
+    </>);
+}
+
+// ===== PLACEHOLDER PAGES =====
+function FacturenPage(){return(<div className="empty-state"><div style={{color:'var(--green-300)',width:80,height:80}}>{I.receipt}</div><h3>Facturen</h3><p>Komt in Stap 4</p></div>)}
+function OverzichtPage(){return(<div className="empty-state"><div style={{color:'var(--green-300)',width:80,height:80}}>{I.chart}</div><h3>Overzicht</h3><p>Komt in Stap 5</p></div>)}
+
+// ===== MAIN APP =====
+function App(){
+    const[tab,sTab]=useState('werklog');
+    const[clients,setClients]=useLS('tuinlog_clients',[]);
+    const[logs,setLogs]=useLS('tuinlog_logs',[]);
+    const[activeLog,setActiveLog]=useLS('tuinlog_active',null);
+    const[toast,sToast]=useState(null);
+    const showToast=useCallback(m=>sToast(m),[]);
+
+    const tabs=[{id:'werklog',label:'Werklog',icon:I.clock},{id:'klanten',label:'Klanten',icon:I.users},{id:'facturen',label:'Facturen',icon:I.receipt},{id:'overzicht',label:'Overzicht',icon:I.chart}];
+    const headers={werklog:{title:'Werklog',sub:activeLog?`Aan het werk bij ${activeLog.klantNaam}`:'Registreer je werktijd'},klanten:{title:'Klanten',sub:`${clients.length} klant${clients.length!==1?'en':''}`},facturen:{title:'Facturen',sub:'Factureer je klanten'},overzicht:{title:'Overzicht',sub:'Statistieken & rapportages'}};
+
+    return(<div className="app">
+        <div className="header"><h1><span style={{opacity:0.5,marginRight:2}}>🌿</span> {headers[tab].title}</h1><p>{headers[tab].sub}</p></div>
+        <div className="content">
+            {tab==='klanten'&&<KlantenPage clients={clients} setClients={setClients} showToast={showToast}/>}
+            {tab==='werklog'&&<WerklogPage clients={clients} logs={logs} setLogs={setLogs} activeLog={activeLog} setActiveLog={setActiveLog} showToast={showToast}/>}
+            {tab==='facturen'&&<FacturenPage/>}
+            {tab==='overzicht'&&<OverzichtPage/>}
+        </div>
+        <nav className="bottom-nav">{tabs.map(t=><button key={t.id} className={`nav-item ${tab===t.id?'active':''}`} onClick={()=>sTab(t.id)}>
+            {t.id==='werklog'&&activeLog&&<div className="nav-dot"/>}{t.icon}{t.label}</button>)}</nav>
+        {toast&&<Toast message={toast} onDone={()=>sToast(null)}/>}
+    </div>);
+}
+ReactDOM.createRoot(document.getElementById('app')).render(<App/>);
+</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').then(r=>console.log('SW ok')).catch(e=>console.log('SW fail:',e))})}</script>
 </body>
 </html>
